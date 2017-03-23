@@ -1,19 +1,18 @@
 /**
- * Created by filip on 2017-03-20.
+ * Created by filip on 2017-03-21.
  */
 import { NavController} from 'ionic-angular';
 import { Component, ViewChild } from '@angular/core';
 import { List } from 'ionic-angular';
 
-//const DEVICES
+
 @Component({
-  selector: 'page-rooms',
-  templateUrl: 'rooms.html'
+  selector: 'page-devices',
+  templateUrl: 'devices.html'
 })
-export class RoomsPage {
+export class DevicesPage {
   @ViewChild(List) list: List;
-  title = 'Rooms';
- // device = DEVICES;
+  // device = DEVICES;
 
   constructor(public navCtrl: NavController){
 //    stopSliding() {
