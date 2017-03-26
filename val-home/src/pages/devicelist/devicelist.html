@@ -1,9 +1,10 @@
-
 <ion-content>
   <ion-list>
     <button ion-item *ngFor="let item of listingdevices" (click)="itemTapped($event, item)">
       {{item.name}}
     </button>
   </ion-list>
-
+  <div *ngIf="selectedItem" padding>
+    You navigated here from <b>{{selectedItem.name}}</b>
+  </div>
 </ion-content>

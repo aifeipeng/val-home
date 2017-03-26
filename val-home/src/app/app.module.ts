@@ -7,7 +7,12 @@ import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import {RoomsPage} from '../pages/rooms/rooms';
 import {DevicesPage} from '../pages/devices/devices';
-import {ListPage} from '../pages/list/list';
+
+import { HttpModule } from '@angular/http';
+import {FormsModule} from "@angular/forms";
+import {BrowserModule} from "@angular/platform-browser";
+import {ApiCallsservice} from "./apicalls.service";
+import {RoomListPage} from "../pages/roomlist/roomlist";
 
 @NgModule({
   declarations: [
@@ -18,9 +23,12 @@ import {ListPage} from '../pages/list/list';
     TabsPage,
     RoomsPage,
     DevicesPage,
-    ListPage
+    RoomListPage
   ],
   imports: [
+    BrowserModule,
+    FormsModule,
+    HttpModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -32,8 +40,10 @@ import {ListPage} from '../pages/list/list';
     TabsPage,
     RoomsPage,
     DevicesPage,
-    ListPage
+    RoomListPage
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
+  providers: [
+    ApiCallsservice,
+    {provide: ErrorHandler, useClass: IonicErrorHandler}]
 })
 export class AppModule {}
