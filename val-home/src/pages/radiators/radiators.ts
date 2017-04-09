@@ -1,5 +1,5 @@
 /**
- * Created by filip on 2017-03-21.
+ * Created by filip on 2017-04-04.
  */
 import {NavController, NavParams,Slides} from 'ionic-angular';
 import { Component, ViewChild } from '@angular/core';
@@ -7,10 +7,10 @@ import {Device} from "../../app/device";
 
 
 @Component({
-  selector: 'page-devices',
-  templateUrl: 'devices.html'
+  selector: 'page-radiators',
+  templateUrl: 'radiators.html'
 })
-export class DevicesPage {
+export class RadiatorsPage {
   @ViewChild(Slides) slides: Slides;
   selectedSegment: string;
   device: Device;

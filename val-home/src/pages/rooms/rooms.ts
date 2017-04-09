@@ -1,11 +1,14 @@
 /**
  * Created by filip on 2017-03-20.
  */
-import {NavController, NavParams } from 'ionic-angular';
+import {NavController, NavParams, Slides, Toggle} from 'ionic-angular';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {Device} from "../../app/device";
 import {ApiCallsservice} from "../../app/apicalls.service";
 import {DevicesPage} from "../devices/devices";
+import {Lamp} from "../../app/lamp";
+import {LampsPage} from "../lamps/lamps";
+import {RadiatorsPage} from "../radiators/radiators";
 
 const DEVICES: Device[] = [{
   _id: "58c99bbc3404c29b31ec2237",
@@ -53,6 +56,9 @@ const DEVICES: Device[] = [{
   templateUrl: 'rooms.html'
 })
 export class RoomsPage implements OnInit{
+  @ViewChild(Slides) slides: Slides;
+  @ViewChild(Toggle) toggle: Toggle;
+  selectedSegment: string;
   title = 'Rooms';
   devices = DEVICES;
   listingdevices: Device[];
@@ -60,20 +66,52 @@ export class RoomsPage implements OnInit{
  // device = DEVICES;
 
   constructor(private apicallsservice: ApiCallsservice,public navCtrl: NavController, public navParams: NavParams){
-//    stopSliding() {
-//      this.list.enableSlidingItems(false);
-   // console.log(navParams.get('room'));
+    this.selectedSegment = 'first';
     this.listingdevices = this.devices.filter(d => d.roomId===navParams.get('room')._id);
   }
 
   itemTapped(event, item) {
-    this.navCtrl.push(DevicesPage, {
-      device: item
-    });
+    if(item.__t === 'Lamp'){
+      this.navCtrl.push(LampsPage, {
+        device: item
+      });
+    }
+    else {
+      this.navCtrl.push(RadiatorsPage, {
+        device: item
+      });
+    }
+
+  }
+
+  itemToggled(item){
+    console.log(item)
+  }
+
+  onSegmentChanged(segmentButton) {
+    console.log("Segment changed to", segmentButton.value);
+    if(segmentButton.value ===('first')){
+      this.slides.slideTo(0)
+    }
+    else {
+      this.slides.slideTo(1)
+    }
+  }
+
+  onSlideChanged(slider) {
+    console.log('Slide changed');
+    const currentSlide = this.slides.getActiveIndex();
+    if(currentSlide === 0){
+      this.selectedSegment = 'first';
+    }
+    else {
+      this.selectedSegment = 'second';
+    }
+    console.log(currentSlide);
   }
 
   ngOnInit(): void {
-    this.apicallsservice
+   // this.apicallsservice
       //.getHouses()
      // .subscribe(p => this.houses = p)
   }

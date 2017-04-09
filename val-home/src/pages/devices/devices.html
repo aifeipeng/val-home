@@ -6,17 +6,17 @@
     <ion-segment-button value="second">
       Second
     </ion-segment-button>
-    <ion-segment-button value="third">
-      Third
-    </ion-segment-button>
   </ion-segment>
 </ion-toolbar>
 
 <ion-content padding>
 
-  <ion-slides #mySlider (ionDidChange)="onSlideChanged($event)">
-    <ion-slide *ngFor="let slide of slides">
-      <h1>{{ slide.title }}</h1>
+  <ion-slides #mySlider (ionSlideDidChange)="onSlideChanged($event)">
+    <ion-slide >
+      <h1>Info</h1>
+    </ion-slide>
+    <ion-slide >
+      <h1>Graph</h1>
     </ion-slide>
   </ion-slides>
 

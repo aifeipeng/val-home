@@ -43,8 +43,6 @@ const ROOMS: Room[] = [{
 export class RoomListPage implements OnInit{
   houses = HOUSES;
   rooms = ROOMS;
-  selectedItem: any;
-  icons: string[];
   items: Array<{title: string, note: string, icon: string}>;
   names = namn;
   listingrooms: Room[];

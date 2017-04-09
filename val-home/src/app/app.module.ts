@@ -4,7 +4,6 @@ import { MyApp } from './app.component';
 import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
-import { TabsPage } from '../pages/tabs/tabs';
 import {RoomsPage} from '../pages/rooms/rooms';
 import {DevicesPage} from '../pages/devices/devices';
 
@@ -12,7 +11,8 @@ import { HttpModule } from '@angular/http';
 import {FormsModule} from "@angular/forms";
 import {BrowserModule} from "@angular/platform-browser";
 import {ApiCallsservice} from "./apicalls.service";
-import {RoomListPage} from "../pages/roomlist/roomlist";
+import {LampsPage} from "../pages/lamps/lamps";
+import {RadiatorsPage} from "../pages/radiators/radiators";
 
 @NgModule({
   declarations: [
@@ -20,10 +20,10 @@ import {RoomListPage} from "../pages/roomlist/roomlist";
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage,
+    LampsPage,
     RoomsPage,
     DevicesPage,
-    RoomListPage
+    RadiatorsPage
   ],
   imports: [
     BrowserModule,
@@ -37,10 +37,10 @@ import {RoomListPage} from "../pages/roomlist/roomlist";
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage,
+    LampsPage,
     RoomsPage,
     DevicesPage,
-    RoomListPage
+    RadiatorsPage
   ],
   providers: [
     ApiCallsservice,

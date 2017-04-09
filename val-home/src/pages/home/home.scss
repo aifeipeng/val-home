@@ -1,3 +1,22 @@
-page-home {
+.ios, .md {
+
+  page-home {
+
+    .scroll-content {
+      background-color: map-get($colors, light);
+    }
+
+    canvas {
+      color: #f53d3d;
+    }
+    ion-card-content{
+      color: #f53d3d;
+    }
+
+    ion-card-header {
+      font-weight: bold;
+    }
+
+  }
 
 }
