@@ -5,10 +5,11 @@ import {NavController, NavParams, Slides, Toggle} from 'ionic-angular';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {Device} from "../../app/device";
 import {ApiCallsservice} from "../../app/apicalls.service";
-import {DevicesPage} from "../devices/devices";
 import {Lamp} from "../../app/lamp";
 import {LampsPage} from "../lamps/lamps";
 import {RadiatorsPage} from "../radiators/radiators";
+import {Observable} from "rxjs";
+import {Room} from "../../app/room";
 
 const DEVICES: Device[] = [{
   _id: "58c99bbc3404c29b31ec2237",
@@ -53,21 +54,21 @@ const DEVICES: Device[] = [{
 //const DEVICES
 @Component({
   selector: 'page-rooms',
-  templateUrl: 'rooms.html'
+  templateUrl: 'rooms.html',
+  providers: [ApiCallsservice]
 })
 export class RoomsPage implements OnInit{
   @ViewChild(Slides) slides: Slides;
   @ViewChild(Toggle) toggle: Toggle;
   selectedSegment: string;
   title = 'Rooms';
-  devices = DEVICES;
-  listingdevices: Device[];
-
- // device = DEVICES;
+  devices: Device[];
+  deviceList: Device[];
+  room: Room;
 
   constructor(private apicallsservice: ApiCallsservice,public navCtrl: NavController, public navParams: NavParams){
     this.selectedSegment = 'first';
-    this.listingdevices = this.devices.filter(d => d.roomId===navParams.get('room')._id);
+    this.room = navParams.get('room');
   }
 
   itemTapped(event, item) {
@@ -111,8 +112,13 @@ export class RoomsPage implements OnInit{
   }
 
   ngOnInit(): void {
-   // this.apicallsservice
-      //.getHouses()
-     // .subscribe(p => this.houses = p)
+   Observable.forkJoin( this.apicallsservice.getDevices())
+     .subscribe(p => {
+       this.devices = p[0];
+       this.deviceList = this.devices.filter(d => d.roomId === this.room._id);
+       console.log(this.devices);
+       console.log(this.deviceList);
+     })
+
   }
 }

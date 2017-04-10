@@ -12,12 +12,14 @@
 <ion-content padding>
   <ion-slides #mySlider (ionSlideDidChange)="onSlideChanged($event)">
     <ion-slide >
-          <ion-navbar>
-            <button ion-item *ngFor="let item of listingdevices" (click)="itemTapped($event, item)">
-              {{item.name}}
-
+          <ion-list>
+            <button ion-item *ngFor="let item of deviceList" class="item item-block item-md item-toggle" (click)="itemTapped($event, item)">
+              <ion-label class="label label-md" id="lbl-444">
+                {{item.name}}
+              </ion-label>
+              <ion-toggle [(ngModel)]="item.powered" class="device-toggle toggle-md" (click)="$event.stopPropagation()"> </ion-toggle>
             </button>
-            </ion-navbar>
+            </ion-list>
 
 
     </ion-slide>

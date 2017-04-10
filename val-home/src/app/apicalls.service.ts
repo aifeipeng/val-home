@@ -54,7 +54,7 @@ export class ApiCallsservice {
 function mapHouses(response:Response): House[]{
   // The response of the API has a results
   // property with the actual results
-  return response.json().results.map(toHouse);
+  return response.json().map(toHouse);
 }
 
 function toHouse(r: any): House{
@@ -74,7 +74,7 @@ function toHouse(r: any): House{
 function mapRooms(response:Response): House[]{
   // The response of the API has a results
   // property with the actual results
-  return response.json().results.map(toRoom);
+  return response.json().map(toRoom);
 }
 
 function toRoom(r: any): House{
@@ -86,15 +86,29 @@ function toRoom(r: any): House{
     houseId: r.houseId,
     temperature: r.temperature
   });
-  console.log('Parsed house:', house);
+  console.log('Parsed room:', house);
   return house;
 }
 
 function mapDevices(response:Response): Device[]{
-  return response.json().results.map(toDevice);
+  return response.json().map(toDevice);
 }
 
 function toDevice(r: any): Device{
-  let device = r.map(r => device=r);
+  console.log(r._id);
+  let device = <Device>({
+    _id: r._id,
+    name: r.name,
+    roomId: r.roomId,
+    dimmer: r.dimmer,
+    temp: r.temp,
+    temperature: r.temperature,
+    powered: r.powered,
+    powerConsumption: r.powerConsumption,
+    powerData: r.powerData,
+    __v: r.__v,
+    __t: r.__t,
+  });
+  console.log('Parsed device:', device);
   return device;
 }

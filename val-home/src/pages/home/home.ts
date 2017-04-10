@@ -1,4 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
+import { Observable } from 'rxjs/Rx';
 
 import {NavController, NavParams,Slides} from 'ionic-angular';
 import {ApiCallsservice} from "../../app/apicalls.service";
@@ -7,28 +8,6 @@ import {House} from "../../app/house";
 import {RoomsPage} from "../rooms/rooms";
 import { Chart } from 'chart.js';
 
-
-const HOUSES: House[] = [{
-  _id: "58c864569bbc23f8585658dd",
-  name: "myhouse",
-  powerData: [22],
-  temperature: [23]
-}];
-
-const ROOMS: Room[] = [{
-  _id: "58c868bd9bbc23f8585658df",
-  houseId: "58c864569bbc23f8585658dd",
-  name: "living_room",
-  powerData: [22],
-  temperature: [23]
-},
-  {
-    _id: "58cf07e742a50aec795e6aaf",
-    houseId: "58c864569bbc23f8585658dd",
-    name: "kitchen",
-    powerData: [22],
-    temperature: [23]
-  }];
 
 @Component({
   selector: 'page-home',
@@ -40,12 +19,10 @@ export class HomePage implements OnInit{
   selectedSegment: string;
   houses: House[];
   house: House;
-  rooms = ROOMS;
-  listingrooms: Room[];
+  rooms: Room[];
+  roomList: Room[];
 
   constructor(private apicallsservice: ApiCallsservice, public navCtrl: NavController, public navParams: NavParams) {
-    this.listingrooms = this.rooms.filter(r => r.houseId=== this.houses[0]._id);
-    this.house = this.houses[0];
     this.selectedSegment = 'first';
   }
 
@@ -81,7 +58,6 @@ export class HomePage implements OnInit{
   @ViewChild('barCanvas') barCanvas;
   @ViewChild('lineCanvas') lineCanvas;
 
-  barChart: any;
   lineChart: any;
 
   ionViewDidLoad() {
@@ -123,11 +99,12 @@ export class HomePage implements OnInit{
   }
 
   ngOnInit(): void {
-    this.apicallsservice
-      .getHouses()
-      .subscribe(p => this.houses = p);
-    /*this.apicallsservice
-      .getRooms()
-      .subscribe(r => this.rooms = r);*/
+    Observable.forkJoin( this.apicallsservice.getHouses(), this.apicallsservice.getRooms())
+      .subscribe(p => {
+        this.houses = p[0];
+        this.house = this.houses[0];
+        this.rooms = p[1];
+        this.roomList = this.rooms.filter(h => h.houseId === this.houses[0]._id);
+      });
   }
 }

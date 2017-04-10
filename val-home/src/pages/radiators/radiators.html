@@ -1,10 +1,64 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<ion-toolbar>
+  <ion-segment [(ngModel)]="selectedSegment" (ionChange)="onSegmentChanged($event)">
+    <ion-segment-button value="first">
+      Rooms
+    </ion-segment-button>
+    <ion-segment-button value="second">
+      Second
+    </ion-segment-button>
+  </ion-segment>
+</ion-toolbar>
 
-</body>
-</html>
+<ion-content padding>
+
+  <ion-slides #mySlider (ionSlideDidChange)="onSlideChanged($event)">
+    <ion-slide >
+      <ion-item>
+        <ion-list>
+          <ion-item>
+            <p>Power Consumption</p>   {{device.powerConsumption}}
+          </ion-item>
+          <ion-item>
+            <ion-range [(ngModel)]="brightness">
+              <ion-icon name="sunny"></ion-icon>
+              <ion-icon name="sunny"></ion-icon>
+            </ion-range>
+          </ion-item>
+        </ion-list>
+      </ion-item>
+    </ion-slide>
+
+    <ion-slide>
+      <ion-item>
+        <ion-card>
+          <ion-card-header>
+            Bar Chart
+          </ion-card-header>
+          <ion-card-content>
+            <canvas #barCanvas></canvas>
+          </ion-card-content>
+        </ion-card>
+      </ion-item>
+
+      <ion-item>
+        <ion-card>
+          <ion-card-header>
+            Line Chart
+          </ion-card-header>
+          <ion-card-content>
+            <canvas #lineCanvas></canvas>
+          </ion-card-content>
+        </ion-card>
+      </ion-item>
+    </ion-slide>
+  </ion-slides>
+
+</ion-content>
+
+<style>
+  ion-scroll {
+    width: 100%;
+    height: 100%;
+  }
+</style>
+
