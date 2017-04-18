@@ -17,7 +17,7 @@
               <ion-label class="label label-md" id="lbl-444">
                 {{item.name}}
               </ion-label>
-              <ion-toggle [(ngModel)]="item.powered" class="device-toggle toggle-md" (click)="$event.stopPropagation()"> </ion-toggle>
+              <ion-toggle [(ngModel)]="item.powered" class="device-toggle toggle-md" (click)="$event.stopPropagation(); itemToggled($event,item);"> </ion-toggle>
             </button>
             </ion-list>
 

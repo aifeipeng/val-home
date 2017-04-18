@@ -4,21 +4,27 @@
 import {NavController, NavParams,Slides} from 'ionic-angular';
 import { Component, ViewChild } from '@angular/core';
 import {Device} from "../../app/device";
+import {ApiCallsservice} from "../../app/apicalls.service";
 
 
 @Component({
   selector: 'page-radiators',
-  templateUrl: 'radiators.html'
+  templateUrl: 'radiators.html',
+  providers: [ApiCallsservice]
 })
 export class RadiatorsPage {
   @ViewChild(Slides) slides: Slides;
   selectedSegment: string;
   device: Device;
-  // device = DEVICES;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams){
+  constructor(private apicallsservice: ApiCallsservice, public navCtrl: NavController, public navParams: NavParams){
     this.selectedSegment = 'first';
     this.device = navParams.get('device');
+  }
+
+  itemToggled(event, dev){
+    console.log(this.device.powered);
+    this.apicallsservice.updateDevice(dev);
   }
 
   onSegmentChanged(segmentButton) {

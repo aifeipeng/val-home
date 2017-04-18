@@ -62,7 +62,7 @@ export class HomePage implements OnInit{
 
   ionViewDidLoad() {
 
-    this.lineChart = new Chart(this.lineCanvas.nativeElement, {
+   /* this.lineChart = new Chart(this.lineCanvas.nativeElement, {
 
       type: 'line',
       data: {
@@ -73,7 +73,7 @@ export class HomePage implements OnInit{
             fill: false,
             lineTension: 0.1,
             backgroundColor: "rgba(75,192,192,0.4)",
-            borderColor: "rgba(75,192,192,1)",
+            borderColor: "rgba(220,0,0,1)",
             borderCapStyle: 'butt',
             borderDash: [],
             borderDashOffset: 0.0,
@@ -87,13 +87,13 @@ export class HomePage implements OnInit{
             pointHoverBorderWidth: 2,
             pointRadius: 1,
             pointHitRadius: 10,
-            data: [65, 59, 80, 81, 56, 55, 40],
+            data: this.house.powerData,
             spanGaps: false,
           }
         ]
       }
 
-    });
+    });*/
 
 
   }
@@ -105,6 +105,39 @@ export class HomePage implements OnInit{
         this.house = this.houses[0];
         this.rooms = p[1];
         this.roomList = this.rooms.filter(h => h.houseId === this.houses[0]._id);
+
+        this.lineChart = new Chart(this.lineCanvas.nativeElement, {
+
+          type: 'line',
+          data: {
+            labels: ["January", "February", "March", "April", "May", "June", "July"],
+            datasets: [
+              {
+                label: "Power Data",
+                fill: false,
+                lineTension: 0.1,
+                backgroundColor: "rgba(110,0,0,0.4)",
+                borderColor: "rgba(1100,0,0,1)",
+                borderCapStyle: 'butt',
+                borderDash: [],
+                borderDashOffset: 0.0,
+                borderJoinStyle: 'miter',
+                pointBorderColor: "rgba(110,0,0,1)",
+                pointBackgroundColor: "#fff",
+                pointBorderWidth: 1,
+                pointHoverRadius: 5,
+                pointHoverBackgroundColor: "rgba(220,0,0,1)",
+                pointHoverBorderColor: "rgba(220,0,0,1)",
+                pointHoverBorderWidth: 2,
+                pointRadius: 1,
+                pointHitRadius: 10,
+                data: this.house.powerData,
+                spanGaps: false,
+              }
+            ]
+          }
+
+        });
       });
   }
 }

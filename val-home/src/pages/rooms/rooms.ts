@@ -11,47 +11,6 @@ import {RadiatorsPage} from "../radiators/radiators";
 import {Observable} from "rxjs";
 import {Room} from "../../app/room";
 
-const DEVICES: Device[] = [{
-  _id: "58c99bbc3404c29b31ec2237",
-  roomId: "58c868bd9bbc23f8585658df",
-  name: "ceiling_lamp",
-  __v: 332,
-  __t: "Lamp",
-  powered: true,
-  temp: 3,
-  powerConsumption: 22,
-  powerData: [33],
-  temperature: [22],
-  dimmer: 3
-},
-  {
-    _id: "58cf084942a50aec795e6ab0",
-    roomId: "58c868bd9bbc23f8585658df",
-    name: "ceiling_lamp",
-    __v: 332,
-    __t: "Lamp",
-    powered: true,
-    temp: 3,
-    powerConsumption: 22,
-    powerData: [33],
-    temperature: [22],
-    dimmer: 3
-  },
-  {
-    _id: "58cf089d42a50aec795e6ab1",
-    roomId: "58cf07e742a50aec795e6aaf",
-    name: "radiator by the window",
-    __v: 474,
-    __t: "Radiator",
-    powered: true,
-    temp: 3,
-    powerConsumption: 0,
-    powerData: [33],
-    temperature: [22],
-    dimmer: 3
-  }];
-
-//const DEVICES
 @Component({
   selector: 'page-rooms',
   templateUrl: 'rooms.html',
@@ -71,6 +30,11 @@ export class RoomsPage implements OnInit{
     this.room = navParams.get('room');
   }
 
+  itemToggled(event, dev){
+    console.log(dev.powered);
+    this.apicallsservice.updateDevice(dev).subscribe();
+  }
+
   itemTapped(event, item) {
     if(item.__t === 'Lamp'){
       this.navCtrl.push(LampsPage, {
@@ -85,9 +49,7 @@ export class RoomsPage implements OnInit{
 
   }
 
-  itemToggled(item){
-    console.log(item)
-  }
+
 
   onSegmentChanged(segmentButton) {
     console.log("Segment changed to", segmentButton.value);

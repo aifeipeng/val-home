@@ -38,8 +38,10 @@ export class ApiCallsservice {
   }
 
   updateDevice(device): Observable<Response> {
+    console.log(this.baseUrl + 'devices/' + device._id);
+    console.log(JSON.stringify(device));
     let response$ = this.http
-      .put(this.baseUrl + 'devices' + device._id, JSON.stringify(device), {headers: this.getHeaders()})
+      .put(this.baseUrl + 'devices/' + device._id, JSON.stringify(device), {headers: this.getHeaders()})
     return response$;
   }
 
