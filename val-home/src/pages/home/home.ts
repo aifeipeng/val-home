@@ -7,6 +7,7 @@ import {Room} from "../../app/room";
 import {House} from "../../app/house";
 import {RoomsPage} from "../rooms/rooms";
 import { Chart } from 'chart.js';
+import { LoadingController } from 'ionic-angular';
 
 
 @Component({
@@ -21,10 +22,23 @@ export class HomePage implements OnInit{
   house: House;
   rooms: Room[];
   roomList: Room[];
+  shownGroup = null;
 
-  constructor(private apicallsservice: ApiCallsservice, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public loadingCtrl: LoadingController, private apicallsservice: ApiCallsservice, public navCtrl: NavController, public navParams: NavParams) {
     this.selectedSegment = 'first';
   }
+
+  toggleGroup(group) {
+    if (this.isGroupShown(group)) {
+      this.shownGroup = null;
+    } else {
+      this.shownGroup = group;
+    }
+  };
+
+  isGroupShown(group) {
+    return this.shownGroup === group;
+  };
 
   itemTapped(event, item) {
     this.navCtrl.push(RoomsPage, {
@@ -56,9 +70,11 @@ export class HomePage implements OnInit{
   }
 
   @ViewChild('barCanvas') barCanvas;
-  @ViewChild('lineCanvas') lineCanvas;
+  @ViewChild('lineCanvas') powerCanvas;
+  @ViewChild('lineCanvas') temperatureCanvas;
 
-  lineChart: any;
+  powerChart: any;
+  temperatureChart: any;
 
   ionViewDidLoad() {
 
@@ -98,7 +114,15 @@ export class HomePage implements OnInit{
 
   }
 
+
+
   ngOnInit(): void {
+    let loader = this.loadingCtrl.create({
+      content: "Please wait...",
+    });
+    loader.present();
+    const source = Observable.interval(1000);
+//    source.switchMap(e => Observable.forkJoin( this.apicallsservice.getHouses(), this.apicallsservice.getRooms()))
     Observable.forkJoin( this.apicallsservice.getHouses(), this.apicallsservice.getRooms())
       .subscribe(p => {
         this.houses = p[0];
@@ -106,11 +130,11 @@ export class HomePage implements OnInit{
         this.rooms = p[1];
         this.roomList = this.rooms.filter(h => h.houseId === this.houses[0]._id);
 
-        this.lineChart = new Chart(this.lineCanvas.nativeElement, {
+        this.powerChart = new Chart(this.powerCanvas.nativeElement, {
 
           type: 'line',
           data: {
-            labels: ["January", "February", "March", "April", "May", "June", "July"],
+            labels: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18"],
             datasets: [
               {
                 label: "Power Data",
@@ -131,13 +155,17 @@ export class HomePage implements OnInit{
                 pointHoverBorderWidth: 2,
                 pointRadius: 1,
                 pointHitRadius: 10,
-                data: this.house.powerData,
+                data: this.house.powerData.slice(this.house.powerData.length-19, this.house.powerData.length-1),
                 spanGaps: false,
               }
             ]
           }
 
         });
+
+
+
+        loader.dismissAll();
       });
   }
 }

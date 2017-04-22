@@ -15,42 +15,34 @@
     <ion-slide >
       <ion-item>
         <ion-list>
-
           <ion-item>
-            <p>Powered</p>
+            <label item-left>Powered</label>
             <ion-toggle [(ngModel)]="device.powered" class="device-toggle toggle-md" (click)="itemToggled($event, device)" > </ion-toggle>
           </ion-item>
           <ion-item>
-            <p>Power Consumption</p>   {{device.powerConsumption}}
+            <label>Power Consumption</label>
+            <label item-right>{{device.powerConsumption}} W</label>
           </ion-item>
           <ion-item>
-
-            <ion-fab>
-              <button ion-fab color="light"><ion-icon name="arrow-dropdown"></ion-icon></button>
-              <ion-fab-list >
-                <button ion-fab><ion-icon >1</ion-icon></button>
-                <button ion-fab><ion-icon >2</ion-icon></button>
-                <button ion-fab><ion-icon >3</ion-icon></button>
-                <button ion-fab><ion-icon >4</ion-icon></button>
-              </ion-fab-list>
-            </ion-fab>
-
+            <label item-left>Effect</label>
+            <ion-select [(ngModel)]="device.temp" (ionChange)="itemToggled($event,device)">
+              <ion-option value="1" >1</ion-option>
+              <ion-option value="2">2</ion-option>
+              <ion-option value="3" >3</ion-option>
+              <ion-option value="4">4</ion-option>
+              <ion-option value="5" >5</ion-option>
+              <ion-option value="6">6</ion-option>
+              <ion-option value="7" >7</ion-option>
+              <ion-option value="8">8</ion-option>
+              <ion-option value="9">9</ion-option>
+            </ion-select>
           </ion-item>
         </ion-list>
       </ion-item>
     </ion-slide>
 
     <ion-slide>
-      <ion-item>
-        <ion-card>
-          <ion-card-header>
-            Bar Chart
-          </ion-card-header>
-          <ion-card-content>
-            <canvas #barCanvas></canvas>
-          </ion-card-content>
-        </ion-card>
-      </ion-item>
+
 
       <ion-item>
         <ion-card>

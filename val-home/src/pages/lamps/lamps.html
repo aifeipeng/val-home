@@ -16,10 +16,12 @@
       <ion-item>
         <ion-list>
           <ion-item>
+            <label item-left>Powered</label>
             <ion-toggle [(ngModel)]="device.powered" class="device-toggle toggle-md" (click)="itemToggled($event, device)" > </ion-toggle>
           </ion-item>
           <ion-item>
-           <p>Power Consumption</p>   {{device.powerConsumption}}
+            <label>Power Consumption</label>
+            <label item-right>{{device.powerConsumption}} W</label>
           </ion-item>
           <ion-item>
             <ion-range min="0" max="100" [(ngModel)]="device.dimmer" >
@@ -32,16 +34,7 @@
     </ion-slide>
 
     <ion-slide>
-      <ion-item>
-        <ion-card>
-          <ion-card-header>
-            Bar Chart
-          </ion-card-header>
-          <ion-card-content>
-            <canvas #barCanvas></canvas>
-          </ion-card-content>
-        </ion-card>
-      </ion-item>
+
 
       <ion-item>
         <ion-card>

@@ -10,29 +10,43 @@
 </ion-toolbar>
 
 <ion-content padding>
-
   <ion-slides #mySlider (ionSlideDidChange)="onSlideChanged($event)">
     <ion-slide >
-      <ion-item>
-        <ion-list>
-          <button ion-item *ngFor="let item of roomList" (click)="itemTapped($event, item)">
-            {{item.name}}
-          </button>
-        </ion-list>
-      </ion-item>
+        <ion-item>
+          <ion-list>
+            <button ion-item *ngFor="let item of roomList" (click)="itemTapped($event, item)">
+              {{item.name}}
+            </button>
+          </ion-list>
+        </ion-item>
     </ion-slide>
 
     <ion-slide>
-      <ion-item>
-      <ion-card>
-        <ion-card-header>
-          Line Chart
-        </ion-card-header>
-        <ion-card-content>
-          <canvas #lineCanvas></canvas>
-        </ion-card-content>
-      </ion-card>
-      </ion-item>
+      <button class="accordion">Section 1</button>
+      <div class="panel">
+        <ion-item>
+          <ion-card>
+            <ion-card-header>
+              Power data Chart
+            </ion-card-header>
+            <ion-card-content>
+              <canvas #lineCanvas></canvas>
+            </ion-card-content>
+          </ion-card>
+        </ion-item>
+      </div>
+
+        <ion-item>
+          <ion-card>
+            <ion-card-header>
+              temperature Chart
+            </ion-card-header>
+            <ion-card-content>
+              <canvas #lineCanvas></canvas>
+            </ion-card-content>
+          </ion-card>
+        </ion-item>
+
     </ion-slide>
   </ion-slides>
 

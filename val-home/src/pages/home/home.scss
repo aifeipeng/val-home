@@ -2,6 +2,12 @@
 
   page-home {
 
+    .ion-slide {
+      overflow-y: scroll;
+      display: block;
+      height: auto;
+
+    }
     .scroll-content {
       background-color: map-get($colors, light);
     }

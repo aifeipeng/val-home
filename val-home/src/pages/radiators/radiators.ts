@@ -23,7 +23,7 @@ export class RadiatorsPage {
   }
 
   itemToggled(event, dev){
-    console.log(this.device.powered);
+    console.log(this.device.temp);
     this.apicallsservice.updateDevice(dev);
   }
 
