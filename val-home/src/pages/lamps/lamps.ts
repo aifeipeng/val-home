@@ -16,11 +16,37 @@ export class LampsPage {
   @ViewChild(Slides) slides: Slides;
   selectedSegment: string;
   device: Device;
+  shownPowerChart = false;
+  shownTemperatureChart = false;
 
   constructor(private apicallsservice: ApiCallsservice, public navCtrl: NavController, public navParams: NavParams){
     this.selectedSegment = 'first';
     this.device = navParams.get('device');
   }
+
+  togglePowerChart() {
+    if (this.isPowerChartShown()) {
+      this.shownPowerChart = false;
+    } else {
+      this.shownPowerChart = true;
+    }
+  };
+
+  isPowerChartShown() {
+    return this.shownPowerChart;
+  };
+
+  toggleTemperatureChart() {
+    if (this.isTemperatureChartShown()) {
+      this.shownTemperatureChart = false;
+    } else {
+      this.shownTemperatureChart = true;
+    }
+  };
+
+  isTemperatureChartShown() {
+    return this.shownTemperatureChart;
+  };
 
   itemToggled(event, dev){
     console.log(this.device.powered);

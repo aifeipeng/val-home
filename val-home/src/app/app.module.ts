@@ -6,7 +6,7 @@ import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import {RoomsPage} from '../pages/rooms/rooms';
 import {DevicesPage} from '../pages/devices/devices';
-
+import {LineChart} from './linechart';
 import { HttpModule } from '@angular/http';
 import {FormsModule} from "@angular/forms";
 import {BrowserModule} from "@angular/platform-browser";
@@ -23,13 +23,14 @@ import {RadiatorsPage} from "../pages/radiators/radiators";
     LampsPage,
     RoomsPage,
     DevicesPage,
-    RadiatorsPage
+    RadiatorsPage,
+    LineChart
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],
   entryComponents: [

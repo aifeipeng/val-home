@@ -24,11 +24,36 @@ export class RoomsPage implements OnInit{
   devices: Device[];
   deviceList: Device[];
   room: Room;
+  shownPowerChart = false;
+  shownTemperatureChart = false;
 
   constructor(private apicallsservice: ApiCallsservice,public navCtrl: NavController, public navParams: NavParams){
     this.selectedSegment = 'first';
     this.room = navParams.get('room');
   }
+  togglePowerChart() {
+    if (this.isPowerChartShown()) {
+      this.shownPowerChart = false;
+    } else {
+      this.shownPowerChart = true;
+    }
+  };
+
+  isPowerChartShown() {
+    return this.shownPowerChart;
+  };
+
+  toggleTemperatureChart() {
+    if (this.isTemperatureChartShown()) {
+      this.shownTemperatureChart = false;
+    } else {
+      this.shownTemperatureChart = true;
+    }
+  };
+
+  isTemperatureChartShown() {
+    return this.shownTemperatureChart;
+  };
 
   itemToggled(event, dev){
     console.log(dev.powered);

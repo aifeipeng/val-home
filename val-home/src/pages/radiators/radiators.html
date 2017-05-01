@@ -1,16 +1,17 @@
 <ion-toolbar>
+  <ion-title>
+    {{device.name}}
+  </ion-title>
   <ion-segment [(ngModel)]="selectedSegment" (ionChange)="onSegmentChanged($event)">
     <ion-segment-button value="first">
-      Rooms
+      Settings
     </ion-segment-button>
     <ion-segment-button value="second">
-      Second
+      Statistics
     </ion-segment-button>
   </ion-segment>
 </ion-toolbar>
-
-<ion-content padding>
-
+<ion-content >
   <ion-slides #mySlider (ionSlideDidChange)="onSlideChanged($event)">
     <ion-slide >
       <ion-item>
@@ -25,17 +26,17 @@
           </ion-item>
           <ion-item>
             <label item-left>Effect</label>
-            <ion-select [(ngModel)]="device.temp" (ionChange)="itemToggled($event,device)">
-              <ion-option value="1" >1</ion-option>
-              <ion-option value="2">2</ion-option>
-              <ion-option value="3" >3</ion-option>
-              <ion-option value="4">4</ion-option>
-              <ion-option value="5" >5</ion-option>
-              <ion-option value="6">6</ion-option>
-              <ion-option value="7" >7</ion-option>
-              <ion-option value="8">8</ion-option>
-              <ion-option value="9">9</ion-option>
-            </ion-select>
+            <select [(ngModel)]="device.temp" (change)="itemToggled($event,device)">
+              <option value="1" >1</option>
+              <option value="2">2</option>
+              <option value="3" >3</option>
+              <option value="4">4</option>
+              <option value="5" >5</option>
+              <option value="6">6</option>
+              <option value="7" >7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+            </select>
           </ion-item>
         </ion-list>
       </ion-item>
@@ -43,17 +44,45 @@
 
     <ion-slide>
 
+      <ion-list>
+        <ion-item text-wrap (click)="togglePowerChart()" [ngClass]="{active: isPowerChartShown()}">
+          <h3>
+            Power chart {{(device?.powerData[device.powerData.length-1].toFixed(0))}} W
+            <ion-icon color="success" item-right [name]="isPowerChartShown() ? 'arrow-dropdown' : 'arrow-dropright'"></ion-icon>
+          </h3>
+          <div *ngIf="isPowerChartShown()">
+            <ion-item>
+              <ion-card>
+                <ion-card-header>
+                  Power data Chart
+                </ion-card-header>
+                <ion-card-content>
+                  <linechart style="display: block" [points]="device?.powerData"></linechart>
+                </ion-card-content>
+              </ion-card>
+            </ion-item>
+          </div>
+        </ion-item>
+        <ion-item text-wrap (click)="toggleTemperatureChart()" [ngClass]="{active: isTemperatureChartShown()}">
+          <h3>
+            Temperature chart {{(device?.temperature[device.temperature.length-1].toFixed(0))}} C
+            <ion-icon color="success" item-right [name]="isTemperatureChartShown() ? 'arrow-dropdown' : 'arrow-dropright'"></ion-icon>
+          </h3>
+          <div *ngIf="isTemperatureChartShown()">
+            <ion-item>
+              <ion-card>
+                <ion-card-header>
+                  Temperature data Chart
+                </ion-card-header>
+                <ion-card-content>
+                  <linechart style="display: block" [points]="device?.temperature"></linechart>
+                </ion-card-content>
+              </ion-card>
+            </ion-item>
+          </div>
+        </ion-item>
 
-      <ion-item>
-        <ion-card>
-          <ion-card-header>
-            Line Chart
-          </ion-card-header>
-          <ion-card-content>
-            <canvas #lineCanvas></canvas>
-          </ion-card-content>
-        </ion-card>
-      </ion-item>
+      </ion-list>
     </ion-slide>
   </ion-slides>
 

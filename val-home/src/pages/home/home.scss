@@ -8,6 +8,9 @@
       height: auto;
 
     }
+    .title {
+      -webkit-text-fill-color: #2019f5;
+    }
     .scroll-content {
       background-color: map-get($colors, light);
     }
