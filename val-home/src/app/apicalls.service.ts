@@ -30,6 +30,13 @@ export class ApiCallsservice {
   return rooms$;
 }
 
+  getRoom(id): Observable<Room[]> {
+    let rooms$ = this.http
+      .get(this.baseUrl + 'rooms/' + id, {headers: this.getHeaders()})
+      .map(mapRooms);
+    return rooms$;
+  }
+
   getDevices(): Observable<Device[]> {
     let devices$ = this.http
       .get(this.baseUrl + 'devices', {headers: this.getHeaders()})
@@ -73,7 +80,7 @@ function toHouse(r: any): House{
 
 
 
-function mapRooms(response:Response): House[]{
+function mapRooms(response:Response): Room[]{
   // The response of the API has a results
   // property with the actual results
   return response.json().map(toRoom);

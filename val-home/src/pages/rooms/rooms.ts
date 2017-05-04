@@ -99,12 +99,13 @@ export class RoomsPage implements OnInit{
   }
 
   ngOnInit(): void {
-   Observable.forkJoin( this.apicallsservice.getDevices())
+    const source = Observable.interval(1000);
+    source.switchMap(e => Observable.forkJoin( this.apicallsservice.getDevices(), this.apicallsservice.getRooms()))
+   //Observable.forkJoin( this.apicallsservice.getDevices(), this.apicallsservice.getRooms())
      .subscribe(p => {
        this.devices = p[0];
        this.deviceList = this.devices.filter(d => d.roomId === this.room._id);
-       console.log(this.devices);
-       console.log(this.deviceList);
+       this.room = p[1].filter(h => h._id === this.room._id)[0];
      })
 
   }

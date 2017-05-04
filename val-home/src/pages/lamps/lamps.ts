@@ -2,9 +2,10 @@
  * Created by filip on 2017-04-04.
  */
 import {NavController, NavParams,Slides} from 'ionic-angular';
-import { Component, ViewChild } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Device} from "../../app/device";
 import {ApiCallsservice} from "../../app/apicalls.service";
+import {Observable} from "rxjs/Observable";
 
 
 @Component({
@@ -12,7 +13,8 @@ import {ApiCallsservice} from "../../app/apicalls.service";
   templateUrl: 'lamps.html',
   providers: [ApiCallsservice]
 })
-export class LampsPage {
+export class LampsPage implements OnInit{
+
   @ViewChild(Slides) slides: Slides;
   selectedSegment: string;
   device: Device;
@@ -73,5 +75,14 @@ export class LampsPage {
       this.selectedSegment = 'second';
     }
     console.log(currentSlide);
+  }
+
+  ngOnInit(): void {
+    const source = Observable.interval(1000);
+    source.switchMap(e => Observable.forkJoin( this.apicallsservice.getDevices()))
+    //Observable.forkJoin( this.apicallsservice.getDevices())
+      .subscribe(p => {
+        this.device = p[0].filter(h => h._id === this.device._id)[0];
+      })
   }
 }

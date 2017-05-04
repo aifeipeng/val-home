@@ -1,16 +1,9 @@
 /**
  * Created by filip on 2017-05-01.
  */
-import {Component, Input, OnInit, SimpleChanges, ViewChild} from '@angular/core';
-import { Observable } from 'rxjs/Rx';
+import {Component, Input, SimpleChanges, ViewChild} from '@angular/core';
 
-import {NavController, NavParams,Slides} from 'ionic-angular';
-import {ApiCallsservice} from "../../app/apicalls.service";
-import {Room} from "../../app/room";
-import {House} from "../../app/house";
-import {RoomsPage} from "../rooms/rooms";
 import { Chart } from 'chart.js';
-import { LoadingController } from 'ionic-angular';
 
 @Component({
   selector: 'linechart',

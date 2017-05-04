@@ -89,8 +89,8 @@ export class HomePage implements OnInit{
     });
     loader.present();
     const source = Observable.interval(1000);
-//    source.switchMap(e => Observable.forkJoin( this.apicallsservice.getHouses(), this.apicallsservice.getRooms()))
-    Observable.forkJoin( this.apicallsservice.getHouses(), this.apicallsservice.getRooms())
+    source.switchMap(e => Observable.forkJoin( this.apicallsservice.getHouses(), this.apicallsservice.getRooms()))
+    //Observable.forkJoin( this.apicallsservice.getHouses(), this.apicallsservice.getRooms())
       .subscribe(p => {
         this.houses = p[0];
         this.house = this.houses[0];
