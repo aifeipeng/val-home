@@ -88,9 +88,8 @@ export class HomePage implements OnInit{
       content: "Please wait...",
     });
     loader.present();
-    const source = Observable.interval(1000);
-    source.switchMap(e => Observable.forkJoin( this.apicallsservice.getHouses(), this.apicallsservice.getRooms()))
-    //Observable.forkJoin( this.apicallsservice.getHouses(), this.apicallsservice.getRooms())
+
+    Observable.forkJoin( this.apicallsservice.getHouses(), this.apicallsservice.getRooms())
       .subscribe(p => {
         this.houses = p[0];
         this.house = this.houses[0];
@@ -99,6 +98,13 @@ export class HomePage implements OnInit{
 
 
         loader.dismissAll();
+      });
+    const source = Observable.interval(1000);
+    source.switchMap(e => Observable.forkJoin( this.apicallsservice.getHouse(this.house._id)))
+      .subscribe(h => {
+        this.house.powerData = h[0].powerData;
+        this.house.temperature = h[0].temperature;
+
       });
   }
 }

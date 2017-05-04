@@ -79,10 +79,10 @@ export class LampsPage implements OnInit{
 
   ngOnInit(): void {
     const source = Observable.interval(1000);
-    source.switchMap(e => Observable.forkJoin( this.apicallsservice.getDevices()))
+    source.switchMap(e => Observable.forkJoin( this.apicallsservice.getDevice(this.device._id)))
     //Observable.forkJoin( this.apicallsservice.getDevices())
       .subscribe(p => {
-        this.device = p[0].filter(h => h._id === this.device._id)[0];
+        this.device.powerData = p[0].powerData;
       })
   }
 }

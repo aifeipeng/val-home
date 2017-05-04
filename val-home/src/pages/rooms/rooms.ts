@@ -99,14 +99,19 @@ export class RoomsPage implements OnInit{
   }
 
   ngOnInit(): void {
+    Observable.forkJoin( this.apicallsservice.getDevices())
+      .subscribe(d => {
+        this.devices = d[0];
+        this.deviceList = this.devices.filter(d => d.roomId === this.room._id);
+
+      });
     const source = Observable.interval(1000);
-    source.switchMap(e => Observable.forkJoin( this.apicallsservice.getDevices(), this.apicallsservice.getRooms()))
+    source.switchMap(e => Observable.forkJoin(this.apicallsservice.getRoom(this.room._id)))
    //Observable.forkJoin( this.apicallsservice.getDevices(), this.apicallsservice.getRooms())
      .subscribe(p => {
-       this.devices = p[0];
-       this.deviceList = this.devices.filter(d => d.roomId === this.room._id);
-       this.room = p[1].filter(h => h._id === this.room._id)[0];
-     })
+       this.room.powerData = p[0].powerData;
+       this.room.temperature = p[0].temperature;
+     });
 
   }
 }

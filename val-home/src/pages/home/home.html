@@ -19,8 +19,8 @@
           <ion-list>
             <button ion-item *ngFor="let item of roomList" (click)="itemTapped($event, item)">
               {{item.name}}
-              <label item-right>{{(house?.powerData[house.powerData.length-1].toFixed(0))}} W</label>
-              <label item-right>{{(house?.temperature[house.temperature.length-1].toFixed(0))}} C</label>
+              <label item-right>{{(item.powerData[item.powerData.length-1].toFixed(0))}} W</label>
+              <label item-right>{{(item.temperature[item.temperature.length-1].toFixed(0))}} C</label>
             </button>
           </ion-list>
         </ion-item>

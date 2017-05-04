@@ -23,6 +23,13 @@ export class ApiCallsservice {
     return houses$;
   }
 
+  getHouse(id: string): Observable<House> {
+    let house$ = this.http
+      .get(this.baseUrl + 'houses/' + id, {headers: this.getHeaders()})
+      .map(mapHouse);
+    return house$;
+  }
+
   getRooms(): Observable<Room[]> {
   let rooms$ = this.http
     .get(this.baseUrl + 'rooms', {headers: this.getHeaders()})
@@ -30,11 +37,11 @@ export class ApiCallsservice {
   return rooms$;
 }
 
-  getRoom(id): Observable<Room[]> {
-    let rooms$ = this.http
+  getRoom(id): Observable<Room> {
+    let room$ = this.http
       .get(this.baseUrl + 'rooms/' + id, {headers: this.getHeaders()})
-      .map(mapRooms);
-    return rooms$;
+      .map(mapRoom);
+    return room$;
   }
 
   getDevices(): Observable<Device[]> {
@@ -42,6 +49,13 @@ export class ApiCallsservice {
       .get(this.baseUrl + 'devices', {headers: this.getHeaders()})
       .map(mapDevices);
     return devices$;
+  }
+
+  getDevice(id): Observable<Device> {
+    let device$ = this.http
+      .get(this.baseUrl + 'devices/' + id, {headers: this.getHeaders()})
+      .map(mapDevice);
+    return device$;
   }
 
   updateDevice(device): Observable<Response> {
@@ -66,6 +80,12 @@ function mapHouses(response:Response): House[]{
   return response.json().map(toHouse);
 }
 
+function mapHouse(response:Response): House{
+  // The response of the API has a results
+  // property with the actual results
+  return response.json();
+}
+
 function toHouse(r: any): House{
   console.log(r._id);
   let house = <House>({
@@ -74,7 +94,7 @@ function toHouse(r: any): House{
     powerData: r.powerData,
     temperature: r.temperature
   });
-  console.log('Parsed house:', house);
+  //console.log('Parsed house:', house);
   return house;
 }
 
@@ -86,6 +106,12 @@ function mapRooms(response:Response): Room[]{
   return response.json().map(toRoom);
 }
 
+function mapRoom(response:Response): Room{
+  // The response of the API has a results
+  // property with the actual results
+  return response.json();
+}
+
 function toRoom(r: any): House{
   console.log(r._id);
   let house = <House>({
@@ -95,13 +121,19 @@ function toRoom(r: any): House{
     houseId: r.houseId,
     temperature: r.temperature
   });
-  console.log('Parsed room:', house);
+  //console.log('Parsed room:', house);
   return house;
 }
 
 function mapDevices(response:Response): Device[]{
   return response.json().map(toDevice);
 }
+
+function mapDevice(response:Response): Device{
+  console.log('Parsed device:', response.json());
+  return response.json();
+}
+
 
 function toDevice(r: any): Device{
   console.log(r._id);
@@ -118,6 +150,6 @@ function toDevice(r: any): Device{
     __v: r.__v,
     __t: r.__t,
   });
-  console.log('Parsed device:', device);
+
   return device;
 }
