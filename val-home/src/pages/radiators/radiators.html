@@ -18,7 +18,7 @@
         <ion-list>
           <ion-item>
             <label item-left>Powered</label>
-            <ion-toggle [(ngModel)]="device.powered" class="device-toggle toggle-md" (click)="itemToggled($event, device)" > </ion-toggle>
+            <ion-toggle [(ngModel)]="device.powered" class="device-toggle toggle-md" (ionChange)="itemToggled($event, device)" > </ion-toggle>
           </ion-item>
           <ion-item>
             <label>Power Consumption</label>
