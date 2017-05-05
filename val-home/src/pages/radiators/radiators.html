@@ -26,17 +26,9 @@
           </ion-item>
           <ion-item>
             <label item-left>Effect</label>
-            <select [(ngModel)]="device.temp" (change)="itemToggled($event,device)">
-              <option value="1" >1</option>
-              <option value="2">2</option>
-              <option value="3" >3</option>
-              <option value="4">4</option>
-              <option value="5" >5</option>
-              <option value="6">6</option>
-              <option value="7" >7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-            </select>
+            <ion-select [(ngModel)]="device.temp" (ionChange)="itemToggled($event,device)">
+              <ion-option  *ngFor="let item of values" value="{{item}}"> {{item}}</ion-option>
+            </ion-select>
           </ion-item>
         </ion-list>
       </ion-item>

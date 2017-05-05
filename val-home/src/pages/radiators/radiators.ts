@@ -20,6 +20,7 @@ export class RadiatorsPage implements OnInit{
   device: Device;
   shownPowerChart = false;
   shownTemperatureChart = false;
+  values = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
   constructor(private apicallsservice: ApiCallsservice, public navCtrl: NavController, public navParams: NavParams){
     this.selectedSegment = 'first';
@@ -50,8 +51,6 @@ export class RadiatorsPage implements OnInit{
   };
 
   itemToggled(event, dev){
-    console.log(this.device.temp);
-    this.device.temp = Number(this.device.temp);
     console.log(this.device.temp);
     this.apicallsservice.updateDevice(dev).subscribe();
   }
