@@ -20,10 +20,12 @@ export class LampsPage implements OnInit{
   device: Device;
   shownPowerChart = false;
   shownTemperatureChart = false;
+  powerconsumption: number;
 
   constructor(private apicallsservice: ApiCallsservice, public navCtrl: NavController, public navParams: NavParams){
     this.selectedSegment = 'first';
     this.device = navParams.get('device');
+    this.powerconsumption = this.device.powerConsumption * this.device.dimmer/100;
   }
 
   togglePowerChart() {
@@ -52,6 +54,7 @@ export class LampsPage implements OnInit{
 
   itemToggled(event, dev){
     console.log(this.device.powered);
+    this.powerconsumption = this.device.powerConsumption * this.device.dimmer/100;
     this.apicallsservice.updateDevice(dev).subscribe();
   }
 
