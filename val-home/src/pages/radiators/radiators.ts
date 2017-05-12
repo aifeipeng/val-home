@@ -20,11 +20,16 @@ export class RadiatorsPage implements OnInit{
   device: Device;
   shownPowerChart = false;
   shownTemperatureChart = false;
-  values = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  values = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+  powerconsumption: number;
 
   constructor(private apicallsservice: ApiCallsservice, public navCtrl: NavController, public navParams: NavParams){
     this.selectedSegment = 'first';
     this.device = navParams.get('device');
+    this.powerconsumption=0;
+    if(this.device.powered){
+      this.powerconsumption = this.device.powerConsumption * this.device.temp;
+    }
   }
   togglePowerChart() {
     if (this.isPowerChartShown()) {
@@ -53,6 +58,12 @@ export class RadiatorsPage implements OnInit{
   itemToggled(event, dev){
     console.log(this.device.temp);
     this.apicallsservice.updateDevice(dev).subscribe();
+    if(this.device.powered){
+      this.powerconsumption = this.device.powerConsumption * this.device.temp;
+    }
+    else {
+      this.powerconsumption=0;
+    }
   }
 
   onSegmentChanged(segmentButton) {

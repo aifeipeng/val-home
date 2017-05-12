@@ -54,8 +54,13 @@ export class LampsPage implements OnInit{
 
   itemToggled(event, dev){
     console.log(this.device.powered);
-    this.powerconsumption = this.device.powerConsumption * this.device.dimmer/100;
     this.apicallsservice.updateDevice(dev).subscribe();
+    if(this.device.powered){
+      this.powerconsumption = this.device.powerConsumption * this.device.dimmer/100;
+    }
+    else {
+      this.powerconsumption=0;
+    }
   }
 
   onSegmentChanged(segmentButton) {

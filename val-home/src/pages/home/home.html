@@ -1,18 +1,18 @@
-  <ion-toolbar>
-    <ion-title class="title" >
-      {{house?.name}}
-    </ion-title>
-    <ion-segment [(ngModel)]="selectedSegment" (ionChange)="onSegmentChanged($event)">
-      <ion-segment-button value="first">
-       Rooms
-      </ion-segment-button>
-      <ion-segment-button value="second">
-        Statistics
-      </ion-segment-button>
-    </ion-segment>
-  </ion-toolbar>
+<ion-toolbar>
+  <ion-title class="title" >
+    TestHouse
+  </ion-title>
+  <ion-segment [(ngModel)]="selectedSegment" (ionChange)="onSegmentChanged($event)">
+    <ion-segment-button value="first">
+     Rooms
+    </ion-segment-button>
+    <ion-segment-button value="second">
+      Statistics
+    </ion-segment-button>
+  </ion-segment>
+</ion-toolbar>
 
-  <ion-content >
+<ion-content >
   <ion-slides #mySlider (ionSlideDidChange)="onSlideChanged($event)">
     <ion-slide >
         <ion-item>
